@@ -8,18 +8,18 @@ import to.mattias.stash.model.Article;
 
 @Component
 public class ArticleRepository {
-  private Map<String, String> articles;
+  private Map<String, Article> articles;
 
   public ArticleRepository() {
     articles = new HashMap<>();
   }
 
-  public Optional<String> findArticleDescription(String ean) {
+  public Optional<Article> findArticleByEan(String ean) {
     return Optional.ofNullable(articles.get(ean));
   }
 
-  public void setArticleDescription(Article article) {
-    articles.put(article.getEan(), article.getDescription());
+  public void setArticle(Article article) {
+    articles.put(article.getEan(), article);
   }
 
 }

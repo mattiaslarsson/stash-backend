@@ -26,17 +26,14 @@ public class ArticlesController {
   }
 
   @GetMapping(path = "/{ean}", produces = APPLICATION_JSON_VALUE)
-  public ResponseEntity<String> findArticleByEan(@PathVariable("ean") final String ean) {
-    String description = articleRepository.findArticleDescription(ean).orElseThrow(
-        ArticleNotFoundException::new);
-
-    return ResponseEntity.ok(description);
+  public ResponseEntity findArticleByEan(@PathVariable("ean") final String ean) {
+    return ResponseEntity.ok(articleRepository.findArticleByEan(ean).orElseThrow(
+        ArticleNotFoundException::new));
   }
 
   @PostMapping(consumes = APPLICATION_JSON_VALUE)
   public ResponseEntity setArticleDescription(@RequestBody final Article article) {
-
-    articleRepository.setArticleDescription(article);
+    articleRepository.setArticle(article);
 
     return ResponseEntity.noContent().build();
   }

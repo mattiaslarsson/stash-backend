@@ -29,12 +29,12 @@ public class ArticleRepositoryTest {
         .description(expectedDescription)
         .build();
 
-    articleRepository.setArticleDescription(article);
+    articleRepository.setArticle(article);
 
-    String actualDescription = articleRepository.findArticleDescription(ean).orElseThrow(
+    Article actualArticle = articleRepository.findArticleByEan(ean).orElseThrow(
         ArticleNotFoundException::new);
 
-    assertThat(actualDescription, is(expectedDescription));
+    assertThat(actualArticle.getDescription(), is(expectedDescription));
 
   }
 
@@ -42,7 +42,7 @@ public class ArticleRepositoryTest {
   public void getNonExistingArticle() {
     String ean = randomUUID();
 
-    articleRepository.findArticleDescription(ean).orElseThrow(ArticleNotFoundException::new);
+    articleRepository.findArticleByEan(ean).orElseThrow(ArticleNotFoundException::new);
 
     fail("Should have thrown ArticleNotFoundException");
   }
