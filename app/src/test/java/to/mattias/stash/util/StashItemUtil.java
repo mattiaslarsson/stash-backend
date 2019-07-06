@@ -4,7 +4,9 @@ import java.util.Date;
 import java.util.UUID;
 import to.mattias.stash.model.StashItem;
 
-public class StashItemUtil {
+public final class StashItemUtil {
+
+  private StashItemUtil() {} // Hiding implicit default constructor
 
   public static StashItem createStashItem() {
     return createStashItem(randomUUID(), randomUUID(), new Date());

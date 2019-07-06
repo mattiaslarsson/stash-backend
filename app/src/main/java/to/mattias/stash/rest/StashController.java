@@ -4,7 +4,6 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +26,6 @@ public class StashController {
 
   @Autowired
   public StashController(StashRepository stashRepository) {
-
     this.stashRepository = stashRepository;
   }
 
@@ -43,6 +41,19 @@ public class StashController {
 
     try {
       return ResponseEntity.ok(stashRepository.getItemsInBox(boxNumber));
+    } catch (BoxNotExistingException e) {
+      return ResponseEntity.notFound().build();
+    }
+  }
+
+  @GetMapping("/box/{boxNumber}")
+  public ResponseEntity<Box> getBox(@PathVariable("boxNumber") final int boxNumber) {
+    try {
+      Box box = Box.builder()
+          .items(stashRepository.getItemsInBox(boxNumber))
+          .boxNumber(boxNumber)
+          .build();
+      return ResponseEntity.ok(box);
     } catch (BoxNotExistingException e) {
       return ResponseEntity.notFound().build();
     }
@@ -64,12 +75,11 @@ public class StashController {
 
   @DeleteMapping("/{boxNumber}/ean/{ean}")
   public ResponseEntity deleteItemFromBox(@PathVariable("boxNumber") final int box,
-                                          @PathVariable("ean") final String ean) {
+      @PathVariable("ean") final String ean) {
     try {
       stashRepository.deleteItemFromBox(ean, box);
     } catch (EanNotFoundException e) {
-      return ResponseEntity.status(NOT_FOUND).body("The box does not contain such an "
-          + "item");
+      return ResponseEntity.status(NOT_FOUND).body("The box does not contain such an item");
     } catch (BoxNotExistingException e) {
       return ResponseEntity.status(NOT_FOUND).body("The box does not exist");
     }

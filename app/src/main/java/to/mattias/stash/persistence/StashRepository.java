@@ -10,7 +10,6 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
 import to.mattias.stash.exception.BoxNotExistingException;
 import to.mattias.stash.exception.EanNotFoundException;
-import to.mattias.stash.exception.NoExpiringItemsException;
 import to.mattias.stash.model.Box;
 import to.mattias.stash.model.ExpiringItem;
 import to.mattias.stash.model.StashItem;
