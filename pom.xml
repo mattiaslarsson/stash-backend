@@ -83,6 +83,24 @@
               <goal>copy-dependencies</goal>
             </goals>
           </execution>
+          <execution>
+            <id>copy-artifact</id>
+            <phase>package</phase>
+            <goals>
+              <goal>copy</goal>
+            </goals>
+            <configuration>
+              <artifactItems>
+                <artifactItem>
+                  <groupId>to.mattias</groupId>
+                  <artifactId>stash-app</artifactId>
+                  <version>1</version>
+                  <type>jar</type>
+                </artifactItem>
+              </artifactItems>
+              <outputDirectory>./target</outputDirectory>
+            </configuration>
+          </execution>
         </executions>
       </plugin>
     </plugins>
