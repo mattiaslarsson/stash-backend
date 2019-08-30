@@ -20,7 +20,7 @@ public class NotificationController {
 
   @PostMapping("/notificationtarget/{target}")
   public ResponseEntity registerNotificationTarget(@PathVariable("target") final String target) {
-    LOGGER.info("Registrating target: {}", target);
+    LOGGER.info("Registering target: {}", target);
     repository.setNotificationTarget(target);
 
     return ResponseEntity.noContent().build();
