@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import to.mattias.stash.exception.ArticleNotFoundException;
 import to.mattias.stash.model.Article;
 import to.mattias.stash.persistence.ArticleRepository;
-import to.mattias.stash.persistence.ArticleRepository_old;
 
 @RestController
 @RequestMapping("/article")

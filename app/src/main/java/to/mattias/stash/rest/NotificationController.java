@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+import to.mattias.stash.model.NotificationTarget;
 import to.mattias.stash.persistence.NotificationTargetRepository;
 
 @RestController
@@ -21,7 +22,8 @@ public class NotificationController {
   @PostMapping("/notificationtarget/{target}")
   public ResponseEntity registerNotificationTarget(@PathVariable("target") final String target) {
     LOGGER.info("Registering target: {}", target);
-    repository.setNotificationTarget(target);
+    NotificationTarget notificationTarget = new NotificationTarget(target);
+    repository.save(notificationTarget);
 
     return ResponseEntity.noContent().build();
   }

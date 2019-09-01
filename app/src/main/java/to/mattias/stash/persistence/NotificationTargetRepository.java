@@ -1,18 +1,8 @@
 package to.mattias.stash.persistence;
 
-import org.springframework.stereotype.Component;
+import org.springframework.data.jpa.repository.JpaRepository;
+import to.mattias.stash.model.NotificationTarget;
 
-@Component
-public class NotificationTargetRepository {
-
-  private static String notificationTarget;
-
-  public String getNotificationTarget() {
-    return notificationTarget;
-  }
-
-  public void setNotificationTarget(String target) {
-    notificationTarget = target;
-  }
+public interface NotificationTargetRepository extends JpaRepository<NotificationTarget, String> {
 
 }

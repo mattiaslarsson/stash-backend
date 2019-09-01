@@ -5,9 +5,8 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,6 +15,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import to.mattias.stash.model.ExpiringItem;
+import to.mattias.stash.model.NotificationTarget;
 import to.mattias.stash.notification.model.ExpiringItems;
 import to.mattias.stash.notification.model.Notification;
 import to.mattias.stash.notification.model.NotificationRequest;
@@ -38,15 +38,17 @@ public class Notifier {
   }
 
   public void sendNotification(List<ExpiringItem> items) throws URISyntaxException {
-    String target = repository.getNotificationTarget();
+    List<NotificationTarget> targets = repository.findAll();
+    List<String> targetsAsStrings = new ArrayList<>();
+    targets.forEach(t -> targetsAsStrings.add(t.getNotificationTarget()));
 
-    LOGGER.info("Notifying {}", target);
+    LOGGER.info("Notifying {}", targets);
     HttpHeaders headers = new HttpHeaders();
     headers.add("content-type", APPLICATION_JSON_VALUE);
     headers.add("Authorization", "key=" + API_KEY);
 
     NotificationRequest requestBody = NotificationRequest.builder()
-        .registration_ids(Arrays.asList(target))
+        .registration_ids(targetsAsStrings)
         .data(ExpiringItems.builder()
             .items(items)
             .build())
