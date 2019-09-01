@@ -15,7 +15,6 @@ import org.junit.Test;
 import org.springframework.http.ResponseEntity;
 import to.mattias.stash.model.Box;
 import to.mattias.stash.model.StashItem;
-import to.mattias.stash.persistence.ArticleRepository;
 import to.mattias.stash.persistence.StashRepository;
 
 public class StashControllerTest {

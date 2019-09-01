@@ -6,17 +6,19 @@ import static org.junit.Assert.assertThat;
 import static to.mattias.stash.util.StashItemUtil.randomUUID;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import to.mattias.stash.exception.ArticleNotFoundException;
 import to.mattias.stash.model.Article;
 
+@Ignore
 public class ArticleRepositoryTest {
 
-  private ArticleRepository articleRepository;
+  private ArticleRepository_old articleRepository;
 
   @Before
   public void setup() {
-    articleRepository = new ArticleRepository();
+    articleRepository = new ArticleRepository_old();
   }
 
   @Test

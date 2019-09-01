@@ -1,25 +1,8 @@
 package to.mattias.stash.persistence;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import org.springframework.stereotype.Component;
+import org.springframework.data.jpa.repository.JpaRepository;
 import to.mattias.stash.model.Article;
 
-@Component
-public class ArticleRepository {
-  private Map<String, Article> articles;
-
-  public ArticleRepository() {
-    articles = new HashMap<>();
-  }
-
-  public Optional<Article> findArticleByEan(String ean) {
-    return Optional.ofNullable(articles.get(ean));
-  }
-
-  public void setArticle(Article article) {
-    articles.put(article.getEan(), article);
-  }
+public interface ArticleRepository extends JpaRepository<Article, String> {
 
 }
