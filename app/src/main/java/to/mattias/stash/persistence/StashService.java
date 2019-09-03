@@ -15,7 +15,6 @@ import to.mattias.stash.model.ExpiringItem;
 import to.mattias.stash.model.StashItem;
 
 @Component
-@Transactional
 public class StashService {
 
   @Autowired

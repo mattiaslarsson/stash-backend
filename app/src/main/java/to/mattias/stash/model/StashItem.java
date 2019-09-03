@@ -17,6 +17,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class StashItem {
+
   @Id
   @GeneratedValue
   private int id;
