@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,6 +14,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @Data
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class StashItem {
   @Id
   @GeneratedValue
@@ -24,5 +27,4 @@ public class StashItem {
   private String description;
   private Date expiration;
 
-  public StashItem() {}
 }
