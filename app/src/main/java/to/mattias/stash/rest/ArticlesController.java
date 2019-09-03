@@ -36,7 +36,6 @@ public class ArticlesController {
   @Transactional
   public ResponseEntity setArticleDescription(@RequestBody final Article article) {
     articleRepository.save(article);
-//    articleRepository.setArticle(article);
 
     return ResponseEntity.noContent().build();
   }

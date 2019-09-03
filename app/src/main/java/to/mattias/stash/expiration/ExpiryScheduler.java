@@ -14,18 +14,18 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import to.mattias.stash.model.ExpiringItem;
 import to.mattias.stash.notification.Notifier;
-import to.mattias.stash.persistence.StashRepository;
+import to.mattias.stash.persistence.StashService;
 
 @Component
 public class ExpiryScheduler {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(ExpiryScheduler.class);
-  private final StashRepository repository;
+  private final StashService repository;
   private final Notifier notifier;
   private int daysAhead;
 
   @Autowired
-  public ExpiryScheduler(StashRepository repository,
+  public ExpiryScheduler(StashService repository,
       @Value("${stash.expiryscheduler.daysahead}") int daysAhead, Notifier notifier) {
     this.repository = repository;
     this.daysAhead = daysAhead;

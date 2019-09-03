@@ -16,23 +16,23 @@ import to.mattias.stash.exception.BoxNotExistingException;
 import to.mattias.stash.exception.EanNotFoundException;
 import to.mattias.stash.model.Box;
 import to.mattias.stash.model.StashItem;
-import to.mattias.stash.persistence.StashRepository;
+import to.mattias.stash.persistence.StashService;
 
 @RestController
 @RequestMapping("/stash")
 public class StashController {
 
-  private final StashRepository stashRepository;
+  private final StashService stashService;
 
   @Autowired
-  public StashController(StashRepository stashRepository) {
-    this.stashRepository = stashRepository;
+  public StashController(StashService stashService) {
+    this.stashService = stashService;
   }
 
   @GetMapping
   public ResponseEntity<List<Box>> getAllBoxes() {
 
-    return ResponseEntity.ok(stashRepository.getAllBoxes());
+    return ResponseEntity.ok(stashService.getAllBoxes());
   }
 
   @GetMapping("/{boxNumber}")
@@ -40,7 +40,7 @@ public class StashController {
       @PathVariable("boxNumber") final int boxNumber) {
 
     try {
-      return ResponseEntity.ok(stashRepository.getItemsInBox(boxNumber));
+      return ResponseEntity.ok(stashService.getItemsInBox(boxNumber));
     } catch (BoxNotExistingException e) {
       return ResponseEntity.notFound().build();
     }
@@ -50,7 +50,7 @@ public class StashController {
   public ResponseEntity<Box> getBox(@PathVariable("boxNumber") final int boxNumber) {
     try {
       Box box = Box.builder()
-          .items(stashRepository.getItemsInBox(boxNumber))
+          .items(stashService.getItemsInBox(boxNumber))
           .boxNumber(boxNumber)
           .build();
       return ResponseEntity.ok(box);
@@ -63,13 +63,13 @@ public class StashController {
   public ResponseEntity postItemToStash(@PathVariable("boxNumber") final int box,
       @RequestBody final StashItem item) {
 
-    stashRepository.addItemToBox(box, item);
+    stashService.addItemToBox(box, item);
     return ResponseEntity.ok().build();
   }
 
   @DeleteMapping("/{boxNumber}")
   public ResponseEntity deleteBox(@PathVariable("boxNumber") final int box) {
-    stashRepository.deleteBox(box);
+    stashService.deleteBox(box);
     return ResponseEntity.noContent().build();
   }
 
@@ -77,7 +77,7 @@ public class StashController {
   public ResponseEntity deleteItemFromBox(@PathVariable("boxNumber") final int box,
       @PathVariable("ean") final String ean) {
     try {
-      stashRepository.deleteItemFromBox(ean, box);
+      stashService.deleteItemFromBox(ean, box);
     } catch (EanNotFoundException e) {
       return ResponseEntity.status(NOT_FOUND).body("The box does not contain such an item");
     } catch (BoxNotExistingException e) {
@@ -91,14 +91,14 @@ public class StashController {
   @GetMapping("/ean/{ean}")
   public ResponseEntity<List<Box>> findBoxesByEan(@PathVariable("ean") final String ean) {
 
-    return ResponseEntity.ok(stashRepository.findBoxesByEan(ean));
+    return ResponseEntity.ok(stashService.findBoxesByEan(ean));
   }
 
   @GetMapping("/description/{description}")
   public ResponseEntity<List<Box>> findBoxesByDescription(
       @PathVariable("description") final String description) {
 
-    return ResponseEntity.ok(stashRepository.findBoxesByDescription(description));
+    return ResponseEntity.ok(stashService.findBoxesByDescription(description));
   }
 
 }
