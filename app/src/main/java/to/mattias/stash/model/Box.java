@@ -23,8 +23,4 @@ public class Box {
   private int boxNumber;
   @OneToMany(mappedBy = "box")
   private List<StashItem> items;
-
-  public Optional<List<StashItem>> getItems() {
-    return Optional.ofNullable(items);
-  }
 }

@@ -24,16 +24,14 @@ public class StashService {
     Box actualBox = repository.findById(boxNumber)
         .orElse(Box.builder().boxNumber(boxNumber).build());
 
-    List<StashItem> itemsInBox = actualBox.getItems().orElse(new ArrayList<>());
-    itemsInBox.add(item);
-    actualBox.setItems(itemsInBox);
+    actualBox.getItems().add(item);
     repository.save(actualBox);
   }
 
   public List<StashItem> getItemsInBox(int boxNumber) throws BoxNotExistingException {
     Box box = repository.findById(boxNumber).orElseThrow(BoxNotExistingException::new);
 
-    return box.getItems().orElse(new ArrayList<>());
+    return box.getItems();
   }
 
   public List<Box> getAllBoxes() {
@@ -44,7 +42,7 @@ public class StashService {
     List<Box> matchingBoxes = new ArrayList<>();
     getAllBoxes().stream()
         .forEach(box ->
-            box.getItems().get().forEach(item -> {
+            box.getItems().forEach(item -> {
               if (item.getEan().equals(ean)) {
                 matchingBoxes.add(box);
               }
@@ -58,7 +56,7 @@ public class StashService {
     List<Box> matchingBoxes = new ArrayList<>();
     getAllBoxes().stream()
         .forEach(box ->
-            box.getItems().get().forEach(item -> {
+            box.getItems().forEach(item -> {
               if (item.getDescription().contains(description)) {
                 matchingBoxes.add(box);
               }
@@ -72,7 +70,7 @@ public class StashService {
     List<ExpiringItem> expiringItems = new ArrayList<>();
     getAllBoxes().stream()
         .forEach(box ->
-            box.getItems().get().forEach(item -> {
+            box.getItems().forEach(item -> {
               if (item.getExpiration().before(expiryDate)) {
                 expiringItems.add(ExpiringItem.builder()
                     .box(box.getBoxNumber())
@@ -91,12 +89,12 @@ public class StashService {
       throws EanNotFoundException, BoxNotExistingException {
     Box box = repository.findById(boxNumber).orElseThrow(BoxNotExistingException::new);
 
-    StashItem itemToRemove = box.getItems().get().stream()
+    StashItem itemToRemove = box.getItems().stream()
         .filter(item -> item.getEan().equals(ean))
         .findFirst()
         .orElseThrow(EanNotFoundException::new);
 
-    box.getItems().get().remove(itemToRemove);
+    box.getItems().remove(itemToRemove);
   }
 
   public void deleteBox(int boxNumber) {
