@@ -8,10 +8,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Builder
 @Data
 @Entity
+@NoArgsConstructor
 public class StashItem {
   @Id
   @GeneratedValue
