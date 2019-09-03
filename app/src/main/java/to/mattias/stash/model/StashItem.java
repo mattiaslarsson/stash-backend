@@ -13,7 +13,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @Data
 @Entity
-@NoArgsConstructor
 public class StashItem {
   @Id
   @GeneratedValue
@@ -25,4 +24,5 @@ public class StashItem {
   private String description;
   private Date expiration;
 
+  public StashItem() {}
 }
