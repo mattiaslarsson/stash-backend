@@ -16,7 +16,7 @@ public class StashItem {
   private int id;
   @ManyToOne
   @JoinColumn(name = "box")
-  private int box;
+  private Box box;
   private String ean;
   private String description;
   private Date expiration;
