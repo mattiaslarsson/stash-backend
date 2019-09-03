@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,6 +21,7 @@ public class Box {
 
   @Id
   private int boxNumber;
+  @OneToMany(mappedBy = "box")
   private List<StashItem> items;
 
   public Optional<List<StashItem>> getItems() {
