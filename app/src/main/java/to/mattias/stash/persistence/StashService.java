@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import to.mattias.stash.exception.BoxNotExistingException;
 import to.mattias.stash.exception.EanNotFoundException;
 import to.mattias.stash.model.Box;
@@ -14,6 +15,7 @@ import to.mattias.stash.model.ExpiringItem;
 import to.mattias.stash.model.StashItem;
 
 @Component
+@Transactional
 public class StashService {
 
   @Autowired
