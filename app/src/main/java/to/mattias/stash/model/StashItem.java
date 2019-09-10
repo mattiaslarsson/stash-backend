@@ -4,8 +4,6 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,11 +19,9 @@ public class StashItem {
   @Id
   @GeneratedValue
   private int id;
-  @ManyToOne
-  @JoinColumn(name = "box")
-  private Box box;
   private String ean;
   private String description;
   private Date expiration;
+  private int box;
 
 }

@@ -1,5 +1,6 @@
 /app/target/
 /target/
+/component-tests/target/
 !.mvn/wrapper/maven-wrapper.jar
 .mvn/
 mvnw
